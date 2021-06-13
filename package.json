@@ -1,0 +1,62 @@
+{
+  "name": "tax24-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=development nodemon index.js",
+    "migrate": "node ./app/database/migration.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gannza/tax24-rest-api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "rest",
+    "api",
+    "sequelize",
+    "mysql"
+  ],
+  "author": "Ganza J. Respices",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gannza/tax24-rest-api/issues"
+  },
+  "homepage": "https://github.com/gannza/tax24-rest-api#readme",
+  "dependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/preset-env": "^7.7.4",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "geo-distance": "^0.2.0",
+    "mysql": "^2.17.1",
+    "mysql2": "^2.2.5",
+    "node-geocoder": "^3.27.0",
+    "nodemon": "^2.0.1",
+    "nyc": "^15.1.0",
+    "path": "^0.12.7",
+    "pg": "^8.3.3",
+    "sequelize": "^5.22.3",
+    "sequelize-cli": "^6.2.0",
+    "validatorjs": "^3.22.1"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.2",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "coveralls": "^3.1.0",
+    "mocha": "^7.1.2",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^1.19.3",
+    "prettier": "^2.0.5"
+  }
+}
