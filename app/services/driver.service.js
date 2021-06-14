@@ -1,5 +1,5 @@
 const db = require("../models");
-const Driver = db.drivers;
+const Driver = db.driver;
 const Op = db.Sequelize.Op;
 
 exports.save = async (payload) => {
@@ -49,6 +49,19 @@ exports.all = async (params) => {
         return await Driver.destroy({
             where: { id: id }
           })
+
+    } catch (error) {
+      return error;
+    }
+  };
+
+  exports.truncate = async () => {
+    try {
+        
+        return await Driver.destroy({
+          where: {},
+          truncate: true
+        })
 
     } catch (error) {
       return error;

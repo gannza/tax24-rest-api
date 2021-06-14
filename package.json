@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development nodemon index.js",
-    "migrate": "node ./app/database/migration.js"
+    "test": "NODE_ENV=test npm run db:migrate && NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 3000 ./app/tests --exit",
+    "start": "NODE_ENV=development nodemon --exec babel-node index.js",
+    "db:migrate": "NODE_ENV=development npx sequelize-cli db:migrate",
+    "db:rollback": "NODE_ENV=development npx sequelize-cli db:migrate:undo:all",
+    "db:seed":"NODE_ENV=development npx sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",

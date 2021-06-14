@@ -5,8 +5,14 @@ const request = async (req, res, next) => {
         "email": "required|string|email",
         "name": "required|string",
         "number": "required|string",
-        "locationId": "required|integer",
-        "status":"required|string"
+        "status":"required|string",
+        'latitude': "required|string",
+        "longitude": "required|string",
+        "country": "required|string",
+        "city": "required|string",
+        "state": "required|string",
+        "streetName": "required|string",
+        "streetNumber":"required|string"
     }
 
     await Validator(req.body, validationRule, {}, (err, status) => {

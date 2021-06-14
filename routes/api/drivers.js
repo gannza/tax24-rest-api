@@ -11,6 +11,7 @@ router.post('/', DriverValidationMiddleware.request, DriversController.store)
 router.patch( '/:driverId', DriverValidationMiddleware.request, DriversController.update)
 router.get( '/:driverId', DriversController.show);
 router.delete( '/:driverId', DriversController.destroy);
+
 // router.get('/available', DriversController.getAvailableDrivers);
 // router.get('/closeto/:locationId', DriversController.getDriversWithinLocation);
 // router.get('/:driverId', DriversController.getSpecificDrivers);

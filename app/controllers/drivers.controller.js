@@ -6,7 +6,6 @@ const {
     getPagingData,
     getPagination
 } = require("../helpers/common");
-
 const db = require("../models");
 const Op = db.Sequelize.Op;
 const DriverService = require("../services/driver.service");
@@ -40,8 +39,13 @@ exports.lists = (req, res) => {
 
     DriverService.all(params)
         .then(data => {
-            const response = getPagingData(data, page, limit);
-            return success(res, "Get a list of all drivers", 200, response);
+            if (data) {
+                const response = getPagingData(data, page, limit);
+                return success(res, "Get a list of all drivers", 200, response);
+            } else {
+                return error(res, "No Drivers found", 404);
+            }
+
         })
         .catch(err => {
             return error(res, err.message || "Some error occurred while getting the Drivers.", 500);
@@ -61,8 +65,14 @@ exports.store = (req, res) => {
         name: req.body.name,
         email: req.body.email,
         number: req.body.number,
-        locationId: req.body.locationId,
         status: req.body.status,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        country: req.body.country,
+        city: req.body.city,
+        state: req.body.state,
+        streetName: req.body.streetName,
+        streetNumber: req.body.streetNumber
     };
 
     // Save Driver in the database
@@ -79,65 +89,85 @@ exports.store = (req, res) => {
 
 exports.show = (req, res) => {
     const id = req.params.driverId;
-    if(!id){
+    if (!id) {
         return error(res, err.message || "Driver Id is required ", 400);
     }
 
     DriverService.findById(id)
-    .then(driver => {
-        return success(res, "retrieving a driver", 200, driver);
-    })
-    .catch(err => {
-        return error(res, err.message || "Error retrieving Driver with id=" + id, 500);
+        .then(driver => {
+            if (driver) {
+                return success(res, "Retrieving a driver", 200, driver);
+            } else {
+                return error(res, "No Driver found", 404);
+            }
+        })
+        .catch(err => {
+            return error(res, err.message || "Error retrieving Driver with id=" + id, 500);
 
-    });
+        });
 };
 exports.update = (req, res) => {
     const id = req.params.driverId;
-    if(!id){
+    if (!id) {
         return error(res, err.message || "Driver Id is required ", 400);
     }
     const payload = {
         name: req.body.name,
         email: req.body.email,
         number: req.body.number,
-        locationId: req.body.locationId,
         status: req.body.status,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        country: req.body.country,
+        city: req.body.city,
+        state: req.body.state,
+        streetName: req.body.streetName,
+        streetNumber: req.body.streetNumber
     };
 
-    DriverService.update(payload,id)
-    .then(num => {
-       
-        if (num == 1) {
-            return success(res, "Driver was updated successfully.", 200, payload);
-          } else {
-            return error(res, `Cannot update Driver with id=${id}. Maybe Driver was not found!`, 400);
-          }
-    })
-    .catch(err => {
-        return error(res, err.message || "Error updating Driver with id=" + id, 500);
+    DriverService.update(payload, id)
+        .then(num => {
 
-    });
+            if (num == 1) {
+                return success(res, "Driver updated", 200, payload);
+            } else {
+                return error(res, `Cannot update Driver with id=${id}. Maybe Driver was not found!`, 400);
+            }
+        })
+        .catch(err => {
+            return error(res, err.message || "Error updating Driver with id=" + id, 500);
+
+        });
 };
 
 exports.destroy = (req, res) => {
     const id = req.params.driverId;
-    if(!id){
+    if (!id) {
         return error(res, err.message || "Driver Id is required ", 400);
     }
-  
 
-    DriverService.destroy(id)
-    .then(num => {
-       
-        if (num == 1) {
-            return success(res, "Driver was deleted successfully.", 204, null);
-          } else {
-            return error(res, `Cannot deleted Driver with id=${id}. Maybe Driver was not found!`, 400);
-          }
-    })
-    .catch(err => {
-        return error(res, err.message || "Error deleting Driver with id=" + id, 500);
+    if (id == 'deleteAll') {
+        DriverService.truncate()
+            .then(num => {
+                return success(res, "Drivers deleted successfully.", 200, null);
+            })
+            .catch(err => {
+                return error(res, err.message || "Error deleting Driver with id=" + id, 500);
 
-    });
+            });
+    } else {
+        DriverService.destroy(id)
+            .then(num => {
+
+                if (num == 1) {
+                    return success(res, "Driver was deleted successfully.", 204, null);
+                } else {
+                    return error(res, `Cannot deleted Driver with id=${id}. Maybe Driver was not found!`, 400);
+                }
+            })
+            .catch(err => {
+                return error(res, err.message || "Error deleting Driver with id=" + id, 500);
+
+            });
+    }
 };
