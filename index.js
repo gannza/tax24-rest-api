@@ -37,8 +37,17 @@ const url = process.env.APP_URL + ':' + port || 'http://localhost:' + port;
 
 app.listen(port, () => console.log(process.env.APP_NAME+ ' api', `Server is running on ${url}`));
 module.exports = app;
+
 // Create Driver Model
 //npx sequelize-cli model:generate --name driver --attributes name:string,email:string,number:string,status:string,latitude:string,longitude:string,country:string,city:string,state:string,streetName:string,streetNumber:string
 
+// CREATE Rider Model 
+// npx sequelize-cli model:generate --name rider --attributes name:string,email:string,number:string,status:string,latitude:string,longitude:string,country:string,city:string,state:string,streetName:string,streetNumber:string
+
+// CREATE Trip
+// npx sequelize-cli model:generate --name trip --attributes driverId:string,riderId:string,from:string,to:string,distance:string,status:string
+
 //CREATE DRIVER SEEDER
 //npx sequelize-cli seed:generate --name driver
+//npx sequelize-cli seed:generate --name rider
+//npx sequelize-cli seed:generate --name trip

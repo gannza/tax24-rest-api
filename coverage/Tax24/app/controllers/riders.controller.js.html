@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Tax24/app/controllers/drivers.controller.js</title>
+    <title>Code coverage report for Tax24/app/controllers/riders.controller.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">Tax24/app/controllers</a> drivers.controller.js</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">Tax24/app/controllers</a> riders.controller.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -229,7 +229,8 @@
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -290,6 +291,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -411,11 +413,11 @@ const {
 } = require("../helpers/common");
 const db = require("../models");
 const Op = db.Sequelize.Op;
-const DriverService = require("../services/driver.service");
+const RiderService = require("../services/rider.service");
 &nbsp;
 /*
  * @lists Method
- *  - Get a list of all drivers
+ *  - Get a list of all riders
  */
 &nbsp;
 exports.lists = (req, res) =&gt; {
@@ -440,30 +442,31 @@ exports.lists = (req, res) =&gt; {
         offset
     };
 &nbsp;
-    DriverService.all(params)
+    RiderService.all(params)
         .then(data =&gt; {
             <span class="missing-if-branch" title="else path not taken" >E</span>if (data) {
                 const response = getPagingData(data, page, limit);
-                return success(res, "Get a list of all drivers", 200, response);
+                return success(res, "Get a list of all riders", 200, response);
             } else {
-<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, "No Drivers found", 404);
+<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, "No Riders found", 404);
             }
 &nbsp;
         })
         .catch(<span class="fstat-no" title="function not covered" >err </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Some error occurred while getting the Drivers.", 500);
+<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Some error occurred while getting the Riders.", 500);
 &nbsp;
         });
 };
 &nbsp;
 /*
  * @store Method
- *  - Store a driver
+ *  - Store a rider
  */
 &nbsp;
 exports.store = (req, res) =&gt; {
 &nbsp;
-    // Create a Driver
+    // Create a rider
+&nbsp;
     const payload = {
         name: req.body.name,
         email: req.body.email,
@@ -478,41 +481,41 @@ exports.store = (req, res) =&gt; {
         streetNumber: req.body.streetNumber
     };
 &nbsp;
-    // Save Driver in the database
+    // Save a rider in the database
 &nbsp;
-    DriverService.save(payload)
-        .then(driver =&gt; {
-            return success(res, "Driver Created", 201, driver);
+    RiderService.save(payload)
+        .then(rider =&gt; {
+            return success(res, "Rider Created", 201, rider);
         })
         .catch(<span class="fstat-no" title="function not covered" >err </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Some error occurred while creating the Driver.", 500);
+<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Some error occurred while creating the Rider.", 500);
 &nbsp;
         });
 };
 &nbsp;
 exports.show = (req, res) =&gt; {
-    const id = req.params.driverId;
+    const id = req.params.riderId;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!id) {
-<span class="cstat-no" title="statement not covered" >        return e</span>rror(res, err.message || "Driver Id is required ", 400);
+<span class="cstat-no" title="statement not covered" >        return e</span>rror(res, err.message || "Rider Id is required ", 400);
     }
 &nbsp;
-    DriverService.findById(id)
-        .then(driver =&gt; {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (driver) {
-                return success(res, "Retrieving a driver", 200, driver);
+    RiderService.findById(id)
+        .then(rider =&gt; {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (rider) {
+                return success(res, "Retrieving a rider", 200, rider);
             } else {
-<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, "No Driver found", 404);
+<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, "No Rider found", 404);
             }
         })
         .catch(<span class="fstat-no" title="function not covered" >err </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Error retrieving Driver with id=" + id, 500);
+<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Error retrieving Rider with id=" + id, 500);
 &nbsp;
         });
 };
 exports.update = (req, res) =&gt; {
-    const id = req.params.driverId;
+    const id = req.params.riderId;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!id) {
-<span class="cstat-no" title="statement not covered" >        return e</span>rror(res, err.message || "Driver Id is required ", 400);
+<span class="cstat-no" title="statement not covered" >        return e</span>rror(res, err.message || "Rider Id is required ", 400);
     }
     const payload = {
         name: req.body.name,
@@ -528,48 +531,48 @@ exports.update = (req, res) =&gt; {
         streetNumber: req.body.streetNumber
     };
 &nbsp;
-    DriverService.update(payload, id)
+    RiderService.update(payload, id)
         .then(num =&gt; {
 &nbsp;
             <span class="missing-if-branch" title="else path not taken" >E</span>if (num == 1) {
-                return success(res, "Driver updated", 200, payload);
+                return success(res, "Rider updated", 200, payload);
             } else {
-<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, `Cannot update Driver with id=${id}. Maybe Driver was not found!`, 400);
+<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, `Cannot update Rider with id=${id}. Maybe Rider was not found!`, 400);
             }
         })
         .catch(<span class="fstat-no" title="function not covered" >err </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Error updating Driver with id=" + id, 500);
+<span class="cstat-no" title="statement not covered" >            return e</span>rror(res, err.message || "Error updating Rider with id=" + id, 500);
 &nbsp;
         });
 };
 &nbsp;
 exports.destroy = (req, res) =&gt; {
-    const id = req.params.driverId;
+    const id = req.params.riderId;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!id) {
-<span class="cstat-no" title="statement not covered" >        return e</span>rror(res, err.message || "Driver Id is required ", 400);
+<span class="cstat-no" title="statement not covered" >        return e</span>rror(res, err.message || "Rider Id is required ", 400);
     }
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (id == 'deleteAll') {
-        DriverService.truncate()
+        RiderService.truncate()
             .then(num =&gt; {
-                return success(res, "Drivers deleted successfully.", 200, null);
+                return success(res, "Riders deleted successfully.", 200, null);
             })
             .catch(<span class="fstat-no" title="function not covered" >err </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, err.message || "Error deleting Driver with id=" + id, 500);
+<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, err.message || "Error deleting Rider with id=" + id, 500);
 &nbsp;
             });
     } else {
-<span class="cstat-no" title="statement not covered" >        DriverService.</span>destroy(id)
+<span class="cstat-no" title="statement not covered" >        RiderService.</span>destroy(id)
             .then(<span class="fstat-no" title="function not covered" >num </span>=&gt; {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                if (num == 1) {</span>
-<span class="cstat-no" title="statement not covered" >                    return s</span>uccess(res, "Driver was deleted successfully.", 204, null);
+<span class="cstat-no" title="statement not covered" >                    return s</span>uccess(res, "Rider was deleted successfully.", 204, null);
                 } else {
-<span class="cstat-no" title="statement not covered" >                    return e</span>rror(res, `Cannot deleted Driver with id=${id}. Maybe Driver was not found!`, 400);
+<span class="cstat-no" title="statement not covered" >                    return e</span>rror(res, `Cannot deleted Rider with id=${id}. Maybe Rider was not found!`, 400);
                 }
             })
             .catch(<span class="fstat-no" title="function not covered" >err </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, err.message || "Error deleting Driver with id=" + id, 500);
+<span class="cstat-no" title="statement not covered" >                return e</span>rror(res, err.message || "Error deleting Rider with id=" + id, 500);
 &nbsp;
             });
     }

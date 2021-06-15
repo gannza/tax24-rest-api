@@ -1,9 +1,9 @@
 const db = require("../models");
-const Driver = db.driver;
+const Trip = db.trip;
 
 exports.save = async (payload) => {
     try {
-            return await Driver.create(payload);
+            return await Trip.create(payload);
 
     } catch (error) {
       return error;
@@ -15,7 +15,7 @@ exports.save = async (payload) => {
 exports.all = async (params) => {
     try {
 
-        return await Driver.findAndCountAll(params)
+        return await Trip.findAndCountAll(params)
 
     } catch (error) {
       return error;
@@ -24,7 +24,7 @@ exports.all = async (params) => {
   exports.findById = async (id) => {
     try {
         
-        return await Driver.findByPk(id)
+        return await Trip.findByPk(id)
 
     } catch (error) {
       return error;
@@ -34,7 +34,7 @@ exports.all = async (params) => {
   exports.update = async (payload,id) => {
     try {
         
-        return await Driver.update(payload, {
+        return await Trip.update(payload, {
             where: { id: id }
           })
 
@@ -45,7 +45,7 @@ exports.all = async (params) => {
   exports.destroy = async (id) => {
     try {
         
-        return await Driver.destroy({
+        return await Trip.destroy({
             where: { id: id }
           })
 
@@ -55,9 +55,9 @@ exports.all = async (params) => {
   };
 
   exports.truncate = async () => {
-    try {
+    try { 
         
-        return await Driver.destroy({
+        return await Trip.destroy({
           where: {},
           truncate: true
         })

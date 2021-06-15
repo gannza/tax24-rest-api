@@ -57,8 +57,8 @@ describe('Driver Apis', () => {
       });
   });
 
-     /*
-  * Test the /POST/v1/api/drivers route
+  /*
+  * Test the /PATCH/v1/api/drivers/:driverId route
   */
      it('Can post one driver', (done) => {
       var payload=qs.stringify({

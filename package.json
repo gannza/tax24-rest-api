@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test npm run db:migrate && NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 3000 ./app/tests --exit",
+    "test": "NODE_ENV=test sequelize db:migrate:undo:all && npm run db:migrate && NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 3000 ./app/tests --exit",
     "start": "NODE_ENV=development nodemon --exec babel-node index.js",
     "db:migrate": "NODE_ENV=development npx sequelize-cli db:migrate",
     "db:rollback": "NODE_ENV=development npx sequelize-cli db:migrate:undo:all",

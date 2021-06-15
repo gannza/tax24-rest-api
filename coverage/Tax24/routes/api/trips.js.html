@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Tax24/app/tests/index.js</title>
+    <title>Code coverage report for Tax24/routes/api/trips.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">Tax24/app/tests</a> index.js</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">Tax24/routes/api</a> trips.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -73,39 +73,42 @@
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chai from 'chai';
-import chaiHttp from 'chai-http';
-import app from '../../index';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const express = require('express');
+const TripsController = require('../../app/controllers/trips.controller');
+const TripValidationMiddleware = require('../../app/middleware/trip-validation-middleware');
+const router = express.Router();
 &nbsp;
-chai.use(chaiHttp);
-chai.should();
+// ******************************** TRIPS API ******************************************************
 &nbsp;
-describe('Tax24 Tests', () =&gt; {
-  it('Should display welcome page', (done) =&gt; {
-    chai.request(app).get('/')
-      .end((err, res) =&gt; {
-        res.should.have.status(200);
-        done();
-      });
-  });
-});
-&nbsp;</pre></td></tr></table></pre>
+router.get('/', TripsController.lists);
+&nbsp;
+router.post('/', TripValidationMiddleware.request, TripsController.store)
+router.patch( '/:tripId', TripValidationMiddleware.request, TripsController.update)
+router.get( '/:tripId', TripsController.show);
+router.delete( '/:tripId', TripsController.destroy);
+&nbsp;
+&nbsp;
+// ******************************** END TRIPS API ***************************************************
+&nbsp;
+module.exports = router;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
