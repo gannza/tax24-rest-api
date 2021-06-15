@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "stable"
+install:
+  - npm i
+cache:
+  directories:
+    - node_modules
+services:
+  - mysql
+before_script:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - npm run db:rollback
+  - npm run db:migrate
+  - npm run db:seed
+script:
+  - npm test
+after_success:
+  - npm run coverage

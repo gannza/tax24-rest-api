@@ -6,6 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test sequelize db:migrate:undo:all && npm run db:migrate && NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 3000 ./app/tests --exit",
     "start": "NODE_ENV=development nodemon --exec babel-node index.js",
+    "coverage": "npm run test  && nyc report --reporter=text-lcov | coveralls",
     "db:migrate": "NODE_ENV=development npx sequelize-cli db:migrate",
     "db:rollback": "NODE_ENV=development npx sequelize-cli db:migrate:undo:all",
     "db:seed":"NODE_ENV=development npx sequelize-cli db:seed:all"
@@ -40,7 +41,6 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "geo-distance": "^0.2.0",
-    "mysql": "^2.17.1",
     "mysql2": "^2.2.5",
     "node-geocoder": "^3.27.0",
     "nodemon": "^2.0.1",
