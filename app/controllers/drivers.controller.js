@@ -4,9 +4,11 @@ const {
 } = require("../helpers/apiResponse");
 const {
     getPagingData,
-    getPagination
+    getPagination,
+    getDriverByLocation
 } = require("../helpers/common");
 const db = require("../models");
+
 const Op = db.Sequelize.Op;
 const DriverService = require("../services/driver.service");
 
@@ -42,6 +44,64 @@ exports.lists = (req, res) => {
             if (data) {
                 const response = getPagingData(data, page, limit);
                 return success(res, "Get a list of all drivers", 200, response);
+            } else {
+                return error(res, "No Drivers found", 404);
+            }
+
+        })
+        .catch(err => {
+            return error(res, err.message || "Some error occurred while getting the Drivers.", 500);
+
+        });
+};
+
+
+exports.getAvailable = (req, res) => {
+
+    const {page,size} = req.query;
+
+    const {limit,offset} = getPagination(page, size);
+  
+    var params = { where: { status: 'Available' } ,limit,offset};
+
+    DriverService.all(params)
+        .then(data => {
+            if (data) {
+                const response = getPagingData(data, page, limit);
+                return success(res, "List of available Drivers", 200, response);
+            } else {
+                return error(res, "No Available Drivers found", 404);
+            }
+
+        })
+        .catch(err => {
+            return error(res, err.message || "Some error occurred while getting the Drivers.", 500);
+
+        });
+};
+//getAvailableDriversWithLocation
+
+exports.getAvailableDriversWithInSpecificLocation = (req, res) => {
+
+    const {page,size,lat,lon} = req.query;
+  
+    var params = { where: { status: 'Available' }};
+
+    const specificLocation = {lat: lat,lon: lon};
+
+    DriverService.all(params)
+        .then(async drivers  => {
+
+            if (drivers.count > 0) {
+
+              const availableDriversWithInSpecLocation =  getDriverByLocation(drivers.rows,specificLocation);
+
+                if(availableDriversWithInSpecLocation.length > 0){
+                    return success(res, "List of available Drivers within Specific Location", 200, availableDriversWithInSpecLocation);
+                }else{
+                    return error(res, "No Drivers found", 404); 
+                }
+             
             } else {
                 return error(res, "No Drivers found", 404);
             }

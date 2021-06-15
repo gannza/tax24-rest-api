@@ -8,7 +8,8 @@ const router = express.Router();
 router.get('/', TripsController.lists);
 
 router.post('/', TripValidationMiddleware.request, TripsController.store)
-router.patch( '/:tripId', TripValidationMiddleware.request, TripsController.update)
+router.get('/active', TripsController.getActiveTrips);
+router.patch( '/:tripId', TripsController.update)
 router.get( '/:tripId', TripsController.show);
 router.delete( '/:tripId', TripsController.destroy);
 

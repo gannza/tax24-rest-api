@@ -34,9 +34,7 @@ describe('Trip Apis', () => {
       riderId: 1,
       from: 'Kigali',
       to: 'Kayonza',
-      status: 'Active',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      status: 'Active'
     });
     chai.request(server)
       .post('/v1/api/trips')
@@ -56,15 +54,11 @@ describe('Trip Apis', () => {
   /*
   * Test the /PATCH/v1/api/trips/:tripId route
   */
-     it('Can post one trip', (done) => {
+     it('Can update one trip', (done) => {
       var payload=qs.stringify({
-        driverId: 1,
-        riderId: 1,
         from: 'Kayonza',
         to: 'Kigali',
-        status: 'Complete',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        status: 'Active'
       });
       chai.request(server)
         .patch('/v1/api/trips/1')
@@ -90,6 +84,43 @@ describe('Trip Apis', () => {
         res.should.have.status(200);
         res.body.should.be.an('object');
         chai.expect(res.body.message).to.eq('Get a list of all trips');
+        done();
+      });
+  });
+
+  
+  /*
+  * Test the /GET/v1/api/trips/active route
+  */
+  it('Can get list of active trips', (done) => {
+    chai.request(server).get('/v1/api/trips/active')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+        chai.expect(res.body.message).to.eq('List of all active Trips');
+        done();
+      });
+  });
+
+
+   /*
+  * Test the /PATCH/v1/api/trips/:tripId route
+  */
+   it('Can complete a trip', (done) => {
+    var payload=qs.stringify({
+      status: 'Complete'
+    });
+    chai.request(server)
+      .patch('/v1/api/trips/1')
+      .type('form')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(payload)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+
+        chai.expect(res.body.message).to.eq('Trip updated');
+       
         done();
       });
   });

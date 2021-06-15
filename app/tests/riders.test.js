@@ -40,9 +40,7 @@ describe('Rider Apis', () => {
       city: "Kayonza",
       state: "Easter province",
       streetName: "Kayonza",
-      streetNumber: "KG 404 Street",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      streetNumber: "KG 404 Street"
     });
     chai.request(server)
       .post('/v1/api/riders')
@@ -62,7 +60,7 @@ describe('Rider Apis', () => {
   /*
   * Test the /PATCH/v1/api/riders/:riderId route
   */
-     it('Can post one rider', (done) => {
+     it('Can update one rider', (done) => {
       var payload=qs.stringify({
         name: 'Ganza J. Respice',
         email: 'respinho2014@gmail.com',
@@ -74,9 +72,7 @@ describe('Rider Apis', () => {
         city: "Kayonza",
         state: "Easter province",
         streetName: "Kayonza",
-        streetNumber: "KG 404 Street",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        streetNumber: "KG 404 Street"
       });
       chai.request(server)
         .patch('/v1/api/riders/1')

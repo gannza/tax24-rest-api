@@ -8,13 +8,12 @@ const router = express.Router();
 router.get('/', DriversController.lists);
 
 router.post('/', DriverValidationMiddleware.request, DriversController.store)
+router.get('/available', DriversController.getAvailable);
+router.get('/:lat/:lon', DriversController.getAvailableDriversWithInSpecificLocation);
 router.patch( '/:driverId', DriverValidationMiddleware.request, DriversController.update)
 router.get( '/:driverId', DriversController.show);
 router.delete( '/:driverId', DriversController.destroy);
 
-// router.get('/available', DriversController.getAvailableDrivers);
-// router.get('/closeto/:locationId', DriversController.getDriversWithinLocation);
-// router.get('/:driverId', DriversController.getSpecificDrivers);
 
 // ******************************** END DRIVERS API ***************************************************
 

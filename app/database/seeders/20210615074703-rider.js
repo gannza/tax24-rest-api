@@ -3,8 +3,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkInsert('riders', [{
-      name: 'Ganza Respice',
-      email: 'respinho2014@gmail.com',
+      name: 'Mupenzi Joseph',
+      email: 'mupenzijoo@gmail.com',
       number: 'RAB20A',
       status: 'Active',
       latitude: -1.8389,

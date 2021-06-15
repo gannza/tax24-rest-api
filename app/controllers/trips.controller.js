@@ -63,6 +63,30 @@ exports.lists = (req, res) => {
         });
 };
 
+exports.getActiveTrips = (req, res) => {
+
+    const {page,size} = req.query;
+
+    const {limit,offset} = getPagination(page, size);
+  
+    var params = { where: { status: 'Active' } ,limit,offset};
+
+    TripService.all(params)
+        .then(data => {
+            if (data) {
+                const response = getPagingData(data, page, limit);
+                return success(res, "List of all active Trips", 200, response);
+            } else {
+                return error(res, "No Active Trips found", 404);
+            }
+
+        })
+        .catch(err => {
+            return error(res, err.message || "Some error occurred while getting the Trips.", 500);
+
+        });
+};
+
 /*
  * @store Method
  *  - Store a trip

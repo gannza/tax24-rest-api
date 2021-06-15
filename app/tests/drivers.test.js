@@ -34,8 +34,8 @@ describe('Driver Apis', () => {
       email: 'muhoracyer@gmail.com',
       number: 'RAA20A',
       status: 'Inactive',
-      latitude: -1.8389,
-      longitude: 30.09969,
+      latitude: -1.920231594130813,
+      longitude: 30.056408655828637,
       country: "Rwanda",
       city: "Kimironko",
       state: "Kigali",
@@ -60,14 +60,14 @@ describe('Driver Apis', () => {
   /*
   * Test the /PATCH/v1/api/drivers/:driverId route
   */
-     it('Can post one driver', (done) => {
+     it('Can update one driver', (done) => {
       var payload=qs.stringify({
         name: 'Muhoracyeye Mbandure Rebecca',
         email: 'muhoracyer@gmail.com',
         number: 'RAA20A',
-        status: 'Inactive',
-        latitude: -1.8389,
-        longitude: 30.09969,
+        status: 'Available',
+        latitude: -1.947413,
+        longitude: 30.132987,
         country: "Rwanda",
         city: "Kimironko",
         state: "Kigali",
@@ -101,7 +101,20 @@ describe('Driver Apis', () => {
         done();
       });
   });
+  
 
+  /*
+   * Test the /GET/v1/api/drivers/available route
+  */
+    it('Can get list of available drivers', (done) => {
+      chai.request(server).get('/v1/api/drivers/available')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an('object');
+          chai.expect(res.body.message).to.eq('List of available Drivers');
+          done();
+        });
+    });
    /*
   * Test the /GET/v1/api/drivers/:driverId route
   */
@@ -114,32 +127,15 @@ describe('Driver Apis', () => {
         done();
       });
   });
+
+  it('Can Get Available Drivers in 3km for specific location', (done) => {
+    chai.request(server).get('/v1/api/drivers/-1.947413/30.132987')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+        chai.expect(res.body.message).to.eq('List of available Drivers within Specific Location');
+        done();
+      });
+  });
   
-  // it('Everyone Can Get Available Drivers', (done) => {
-  //   chai.request(app).get('/drivers/available')
-  //     .end((err, res) => {
-  //       res.should.have.status(200);
-  //       res.body.should.be.an('object');
-  //       chai.expect(res.body.message).to.eq('List of available Drivers');
-  //       done();
-  //     });
-  // });
-  // it('Everyone Can Get One Specific Driver', (done) => {
-  //   chai.request(app).get('/drivers/5')
-  //     .end((err, res) => {
-  //       res.should.have.status(200);
-  //       res.body.should.be.an('object');
-  //       chai.expect(res.body.message).to.eq('Driver Information');
-  //       done();
-  //     });
-  // });
-  // it('Driver Can Get Available Driver in 3km for specific location', (done) => {
-  //   chai.request(app).get('/drivers/closeto/2')
-  //     .end((err, res) => {
-  //       res.should.have.status(200);
-  //       res.body.should.be.an('object');
-  //       chai.expect(res.body.message).to.eq('List of available Drivers');
-  //       done();
-  //     });
-  // });
 });
