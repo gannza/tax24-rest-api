@@ -9,7 +9,7 @@ cache:
 services:
   - mysql
 before_script:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS tax24;'
   - npm run db:rollback
   - npm run db:migrate
   - npm run db:seed
