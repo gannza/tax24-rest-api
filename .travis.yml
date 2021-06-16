@@ -17,14 +17,3 @@ script:
   - npm test
 after_success:
   - npm run coverage
-branches:
-  only:
-    - master
-    - dev
-deploy:
-  provider: heroku
-  api_key:
-    secure: ADD_API_KEY_HERE
-  app:
-    master: tax24
-    dev: tax24-staging

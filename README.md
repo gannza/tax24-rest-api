@@ -1,5 +1,5 @@
 # TAX24 REST API 
-  
+[![Build Status](https://www.travis-ci.com/gannza/tax24-rest-api.svg?branch=master)](https://www.travis-ci.com/gannza/tax24-rest-api)
   # FEATURES
     1. DRIVERS
       ▪ Get a list of all drivers
