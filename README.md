@@ -30,7 +30,7 @@
  - Postman(https://www.getpostman.com/downloads/) to test the Api endpoints
  - Node.js installed (https://nodejs.org/)
  - Make sure Mysql installed and running locally (latest stable version: 5.1.1)
-    * For Window: if you are using window you can download xampp app then installed it then after       installation is completed, you can start mysql.
+    * For Window: you can download xampp app(https://www.apachefriends.org/xampp-files/8.0.7/xampp-windows-x64-8.0.7-0-VS16-installer.exe)  install it in your computer then after installation is completed, you can start mysql.
     * For lunix: Install Mysql by following this link (https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04)
  - Run `npm install` or `yarn` in your root project folder
 
