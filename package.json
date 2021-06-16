@@ -23,7 +23,7 @@
     "sequelize",
     "mysql2"
   ],
-  "author": "Ganza J. Respices",
+  "author": "Ganza  Respice",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gannza/tax24-rest-api/issues"
