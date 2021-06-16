@@ -60,5 +60,6 @@
 
 ## API endpoints
    Click this link to view api documentation https://documenter.getpostman.com/view/4883600/TzeWF7P5
+   
    Open this link https://www.getpostman.com/collections/a0c6633e2ccec13deaa9 to access POSTMAN APIs
 
