@@ -10,22 +10,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Rider Apis', () => {
-
   /*
-  * Test the /GET/v1/api/riders/deleteAll route
-  */
-    it('Can delete all riders', (done) => {
-      chai.request(server).delete('/v1/api/riders/deleteAll')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.an('object');
-          chai.expect(res.body.message).to.eq('Riders deleted successfully.');
-          done();
-        });
-    });
-
-
-     /*
   * Test the /POST/v1/api/riders route
   */
   it('Can post one rider', (done) => {

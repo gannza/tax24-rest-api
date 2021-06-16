@@ -10,22 +10,8 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Driver Apis', () => {
-
+  
   /*
-  * Test the /GET/v1/api/drivers/deleteAll route
-  */
-    it('Can delete all drivers', (done) => {
-      chai.request(server).delete('/v1/api/drivers/deleteAll')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.an('object');
-          chai.expect(res.body.message).to.eq('Drivers deleted successfully.');
-          done();
-        });
-    });
-
-
-     /*
   * Test the /POST/v1/api/drivers route
   */
   it('Can post one driver', (done) => {
@@ -33,7 +19,7 @@ describe('Driver Apis', () => {
       name: 'Muhoracyeye Rebecca',
       email: 'muhoracyer@gmail.com',
       number: 'RAA20A',
-      status: 'Inactive',
+      status: 'Available',
       latitude: -1.920231594130813,
       longitude: 30.056408655828637,
       country: "Rwanda",
@@ -62,12 +48,12 @@ describe('Driver Apis', () => {
   */
      it('Can update one driver', (done) => {
       var payload=qs.stringify({
-        name: 'Muhoracyeye Mbandure Rebecca',
-        email: 'muhoracyer@gmail.com',
-        number: 'RAA20A',
+        name: 'Ganza Respice',
+        email: 'respinho2014@gmail.com',
+        number: 'RAB20X',
         status: 'Available',
-        latitude: -1.947413,
-        longitude: 30.132987,
+        latitude: -1.9511374,
+        longitude: 30.111793,
         country: "Rwanda",
         city: "Kimironko",
         state: "Kigali",
@@ -129,11 +115,21 @@ describe('Driver Apis', () => {
   });
 
   it('Can Get Available Drivers in 3km for specific location', (done) => {
-    chai.request(server).get('/v1/api/drivers/-1.947413/30.132987')
+    chai.request(server).get('/v1/api/drivers/specificLocation?lat=-1.947413&lon=30.132987&distanceInKm=2.4')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.an('object');
         chai.expect(res.body.message).to.eq('List of available Drivers within Specific Location');
+        done();
+      });
+  });
+
+  it('Can get a list of the 3 closest drivers For a specific driver', (done) => {
+    chai.request(server).get('/v1/api/drivers/closest/1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+        chai.expect(res.body.message).to.eq('List of closest Drivers');
         done();
       });
   });

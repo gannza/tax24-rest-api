@@ -9,7 +9,9 @@ router.get('/', DriversController.lists);
 
 router.post('/', DriverValidationMiddleware.request, DriversController.store)
 router.get('/available', DriversController.getAvailable);
-router.get('/:lat/:lon', DriversController.getAvailableDriversWithInSpecificLocation);
+router.get('/specificLocation', DriversController.getAvailableDriversWithInSpecificLocation);
+router.get('/closest/:driverId', DriversController.getClosestDriversByDriverId);
+
 router.patch( '/:driverId', DriverValidationMiddleware.request, DriversController.update)
 router.get( '/:driverId', DriversController.show);
 router.delete( '/:driverId', DriversController.destroy);

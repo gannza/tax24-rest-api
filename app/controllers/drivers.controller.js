@@ -5,7 +5,8 @@ const {
 const {
     getPagingData,
     getPagination,
-    getDriverByLocation
+    getDriverByLocation,
+    getClosestDrivers
 } = require("../helpers/common");
 const db = require("../models");
 
@@ -58,11 +59,23 @@ exports.lists = (req, res) => {
 
 exports.getAvailable = (req, res) => {
 
-    const {page,size} = req.query;
+    const {
+        page,
+        size
+    } = req.query;
 
-    const {limit,offset} = getPagination(page, size);
-  
-    var params = { where: { status: 'Available' } ,limit,offset};
+    const {
+        limit,
+        offset
+    } = getPagination(page, size);
+
+    var params = {
+        where: {
+            status: 'Available'
+        },
+        limit,
+        offset
+    };
 
     DriverService.all(params)
         .then(data => {
@@ -83,25 +96,35 @@ exports.getAvailable = (req, res) => {
 
 exports.getAvailableDriversWithInSpecificLocation = (req, res) => {
 
-    const {page,size,lat,lon} = req.query;
-  
-    var params = { where: { status: 'Available' }};
+    const {
+        lat,lon,
+        distanceInKm
+    } = req.query;
 
-    const specificLocation = {lat: lat,lon: lon};
+    var params = {
+        where: {
+            status: 'Available'
+        }
+    };
+
+    const specificLocation = {
+        lat: lat,
+        lon: lon
+    };
 
     DriverService.all(params)
-        .then(async drivers  => {
+        .then(async drivers => {
 
             if (drivers.count > 0) {
 
-              const availableDriversWithInSpecLocation =  getDriverByLocation(drivers.rows,specificLocation);
+                const availableDriversWithInSpecLocation = getDriverByLocation(drivers.rows, specificLocation,distanceInKm);
 
-                if(availableDriversWithInSpecLocation.length > 0){
+                if (availableDriversWithInSpecLocation.length > 0) {
                     return success(res, "List of available Drivers within Specific Location", 200, availableDriversWithInSpecLocation);
-                }else{
-                    return error(res, "No Drivers found", 404); 
+                } else {
+                    return error(res, "No Drivers found", 404);
                 }
-             
+
             } else {
                 return error(res, "No Drivers found", 404);
             }
@@ -112,6 +135,48 @@ exports.getAvailableDriversWithInSpecificLocation = (req, res) => {
 
         });
 };
+
+/*
+ *  For a specific driver, get a list of the 3 closest drivers
+ */
+exports.getClosestDriversByDriverId = async (req, res) => {
+    try {
+
+        const id = req.params.driverId;
+        if (!id) {
+            return error(res, err.message || "Driver Id is required ", 400);
+        }
+
+        const specificDriver = await DriverService.findById(id);
+        if (specificDriver) {
+
+            const specificDriverLocation = {
+                lat: specificDriver.latitude,
+                lon: specificDriver.longitude
+            };
+
+            const availableDrivers = await DriverService.all({
+                where: {
+                    status: 'Available'
+                }
+            });
+            if (availableDrivers.count > 0) {
+
+                const driversWithinDistances = getClosestDrivers(availableDrivers.rows, specificDriverLocation);
+
+                return success(res, "List of closest Drivers", 200, driversWithinDistances);
+            }
+
+
+
+            return error(res, `No Closest Drivers found`, 404);
+        }
+        return error(res, `No Specific Driver By ID=[${id}] found`, 404);
+
+    } catch (e) {
+        return error(res, e.message, 500);
+    }
+}
 
 /*
  * @store Method

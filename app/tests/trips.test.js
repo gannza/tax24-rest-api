@@ -11,27 +11,14 @@ chai.should();
 
 describe('Trip Apis', () => {
 
-  /*
-  * Test the /GET/v1/api/trips/deleteAll route
-  */
-    it('Can delete all trips', (done) => {
-      chai.request(server).delete('/v1/api/trips/deleteAll')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.an('object');
-          chai.expect(res.body.message).to.eq('Trips deleted successfully.');
-          done();
-        });
-    });
-
 
      /*
   * Test the /POST/v1/api/trips route
   */
   it('Can post one trip', (done) => {
     var payload=qs.stringify({
-      driverId: 1,
-      riderId: 1,
+      driverId: 2,
+      riderId: 2,
       from: 'Kigali',
       to: 'Kayonza',
       status: 'Active'
@@ -125,7 +112,7 @@ describe('Trip Apis', () => {
       });
   });
 
-   /*
+   /* 
   * Test the /GET/v1/api/trips/:tripId route
   */
   it('Can show one trip', (done) => {

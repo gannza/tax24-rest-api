@@ -17,23 +17,8 @@ module.exports = {
       streetNumber: "KG 10st Street",
       createdAt: new Date(),
       updatedAt: new Date(),
-    },
-    {
-
-      name: 'Muhoracyeye Rebecca',
-      email: 'muhoracyer@gmail.com',
-      number: 'RAA20A',
-      status: 'Available',
-      latitude: -1.920231594130813,
-      longitude: 30.056408655828637,
-      country: "Rwanda",
-      city: "Gisozi",
-      state: "Kigali",
-      streetName: "33H4+WH Kigali",
-      streetNumber: "KG 14 Ave, Kigali",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }]);
+    }
+  ]);
   },
 
   down: async (queryInterface, Sequelize) => {
