@@ -21,7 +21,7 @@
     "rest",
     "api",
     "sequelize",
-    "mysql"
+    "mysql2"
   ],
   "author": "Ganza J. Respices",
   "license": "ISC",
